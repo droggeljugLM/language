@@ -1,0 +1,28 @@
+strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.chapter>p,
+.section>p {
+  line-height: 2.5;
+}
+
+p {
+  line-height: 2.5;
+}
+
+body {
+  font-family: "Microsoft YaHei", "Helvetica", "Arial", sans-serif;
+  font-size: 18px;
+  line-height: 2;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Noto Serif SC", "Arial", sans-serif;
+}

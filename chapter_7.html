@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>语言迁移与互促作用 - language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="语言迁移与互促作用技能的融会贯通"><a class="header" href="#语言迁移与互促作用技能的融会贯通">语言迁移与互促作用：技能的融会贯通</a></h1>
+<p>学习一门“语言”是否会帮助我们学习另一门？<br />
+外语、编程语言、数学之间是否存在技能迁移或互相促进的可能？<br />
+这个问题很有趣，近年来也有一些研究和经验为此提供线索。</p>
+<h2 id="认知迁移与科研发现"><a class="header" href="#认知迁移与科研发现">认知迁移与科研发现</a></h2>
+<p>来自美国华盛顿大学的一项研究给出了发人深省的结果。<br />
+研究发现，一个人的语言能力对于其编程学习效果的预测作用显著高于数学能力。<br />
+换言之，语言天赋强的人往往更容易掌握编程，而纯粹数学成绩好并不保证编程学得快。<br />
+这项研究通过实验表明，语言能力、推理能力和工作记忆可以解释编程学习成绩中约70%的差异，其中语言能力是最强预测因子；<br />
+相比之下，计算（数学）能力只解释了约2%的差异。<br />
+这一结果颠覆了很多人的刻板印象，说明<strong>掌握自然语言的技能对编程学习有直接助益</strong>。<br />
+从本质上看，程序设计语言正如前文所说是一种“形式化的外语”，需要学习新词汇和新语法，再将其组装表达意义。<br />
+因此，擅长外语的人往往拥有良好的语法学习能力、记忆力和对语言模式的敏感度，这些素质也适用于学习编程语法和代码模式。<br />
+这可以解释为何语言能力强对编程有帮助。<br />
+该研究甚至发现，一些预测外语（比如法语）学习速度的脑电波指标，同样可以预测一个人学习编程的速度。<br />
+这进一步印证了语言和编程在大脑认知机制上的某些相似性。</p>
+<h2 id="逻辑思维的共通"><a class="header" href="#逻辑思维的共通">逻辑思维的共通</a></h2>
+<p>那么数学呢？尽管上述研究显示数学能力对编程成绩的直接相关性不高，但我们不能据此否认数学和编程思维的共通性。<br />
+很多程序设计任务（特别是算法和复杂系统开发）仍然<strong>高度依赖数学的逻辑推理和抽象能力</strong>。<br />
+数学训练有素的人，通常具备严密分析问题的习惯、抽象建模的能力，这在编程时大有裨益。<br />
+例如，编程中的算法设计与分析几乎就是应用离散数学的过程：算法的时间复杂度证明、数据结构正确性证明等等，都需要数学功底。<br />
+因此我们常见在竞技编程或算法开发中，数学背景强的人表现出色。<br />
+此外，<strong>数学和编程的互促</strong>更多体现在具体领域：<br />
+计算机图形学需要扎实的几何和线性代数知识，机器学习涉及大量微积分和概率论，密码学直接建立在数论之上。<br />
+可以说，当一个人为了编程目标去学习数学时，会更有动力和针对性地掌握相关数学知识；反过来，这些数学知识又能反馈提高他的编程能力。这是一种实用驱动的互促关系。<br />
+同样地，用编程来辅助数学学习也成为一种趋势——比如学生通过写代码验证数学命题的小例子、可视化几何概念等，将编程作为理解数学的工具。<br />
+这种结合让学习更主动有趣，从而在心理层面促进了数学学习。</p>
+<h2 id="多语言之间的类比"><a class="header" href="#多语言之间的类比">多语言之间的类比</a></h2>
+<p>如果超越具体，站在更宏观的角度，我们会发现<strong>掌握一种语言后再学另一种时，常常存在某种迁移效应</strong>。<br />
+外语学习者深有体会：学会第二外语后，再学第三外语通常更轻松，因为已经摸索出一套记忆词汇、理解语法、培养语感的方法，并能把不同语言进行类比（例如发现西班牙语和法语的共性）。<br />
+同理，在编程领域，熟练掌握一门编程语言后，学习新的语言也快很多——因为许多编程概念（变量、循环、函数等）是相通的，只需适应新语法和新范式即可。甚至很多程序员喜欢<strong>多门语言混合使用</strong>，不同语言解决不同子问题，这也要求快速切换语言思维的能力。<br />
+数学的各分支之间也存在迁移：学过线性代数的人在学量子力学时会轻松一些，因为数学语言共通；学过数学证明的人在接触新的数学领域时知道如何研读定义和引理。<br />
+这些例子表明，大脑在掌握一种符号系统和思维模式后，再接受另一种时可以<strong>举一反三</strong>。</p>
+<h2 id="跨领域的促进"><a class="header" href="#跨领域的促进">跨领域的促进</a></h2>
+<p>有意思的是，不少教育者和研究者相信，学习不同类型的“语言”可以产生一般性的认知提升。<br />
+例如，<strong>双语者</strong>在执行功能（如注意力控制、任务切换）上往往优于单语者，这意味着他们也许更擅长处理复杂任务或学习第三项技能。<br />
+一些研究甚至指出，双语儿童在数学推理上表现出色​。<br />
+原因可能是掌握两种语言锻炼了大脑的灵活性和信息管理能力，这些能力对数学问题解决也有帮助。<br />
+再比如，早年有观点认为学好拉丁语有助于培养逻辑思维，从而有利于日后学习科学和编程（虽然现代研究对此支持有限，但这反映了人们对跨领域迁移的期待）。<br />
+反过来，编程教育现在被引入中小学，部分初衷也是相信编程可以锻炼<strong>分析思考和创意实践能力</strong>，这些能力对其他学科学习是通用的。<br />
+一个典型场景是利用编程来学习物理或数学：学生通过编写仿真代码更深入地理解了物理定律，同时编程能力也得到锻炼，实现双赢。</p>
+<h2 id="心理与动机因素"><a class="header" href="#心理与动机因素">心理与动机因素</a></h2>
+<p>迁移作用不光发生在认知技能层面，也体现在心理层面。<br />
+学习过一门困难的“语言”之后，再面对另一门新的“语言”时，学习者往往更有信心和耐心，因为他们知道<strong>如何去学习</strong>。<br />
+比如，一个人攻克了学外语的困难发音，可能在面对编程调试难题时更能坚持不懈，因为他有过克服语言难关的经验。<br />
+同样，完成过复杂编程项目的人，对于钻研晦涩的数学证明可能更有毅力，因为他们明白解决困难问题需要反复尝试和分步攻克。<br />
+这种“心态迁移”是难以量化的，但很多多领域学习者都有类似感受：某个领域的成功经验，让自己在其他领域遇挫时不轻易放弃。</p>
+<h2 id="小结"><a class="header" href="#小结">小结</a></h2>
+<p>总的来说，不同语言技能之间确实存在种种<strong>迁移与互促</strong>。<br />
+语言能力强的人在编程上如鱼得水，编程好的人在学习数学模型时也较快入门，而数学素养好的人在算法编码上依然具优势。<br />
+当然，迁移并非自动发生，还需要靠学习者有意识地将一种领域的思维方法应用到另一领域上。<br />
+同时，也要避免将一种思维<strong>生搬硬套</strong>到不合适的地方——每个领域都有其特殊性，需要扬长避短。<br />
+只要我们保持开放的心态，多去寻找不同知识之间的联系，完全可以实现“一通百通”，让各种“语言”技能形成良性循环，互相促进。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_6.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_8.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_6.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_8.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

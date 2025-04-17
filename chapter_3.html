@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>思维方式 - language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="思维方式抽象逻辑与直觉的交响"><a class="header" href="#思维方式抽象逻辑与直觉的交响">思维方式：抽象、逻辑与直觉的交响</a></h1>
+<p><strong>大脑在面对不同“语言”时所运用的思维方式不尽相同。</strong><br />
+学习和使用自然语言、编程语言、数学语言，各自要求我们发展某些特定的思维能力，同时这些思维又有重叠之处。</p>
+<h2 id="自然语言直觉与语境驱动的思维"><a class="header" href="#自然语言直觉与语境驱动的思维">自然语言：直觉与语境驱动的思维</a></h2>
+<p>使用自然语言时，我们的大脑相当程度上依赖模式识别和直觉理解。<br />
+母语者往往不需要刻意思考语法规则就能流利表达，这是一种高度训练的直觉化思维。<br />
+这种思维擅长从上下文推断意义、领会言外之意、体会语气和情感。<br />
+学习外语时，同样需要培养语感和直觉——很多时候我们先“感觉”某种表达是否对，再去找语法依据。<br />
+自然语言思维也包含<strong>联想与类比</strong>能力：一个词可以引发一连串相关概念。<br />
+同时，人类语言思维具有创造性（如即兴造句、隐喻）和社交认知（揣测对方意图等）的成分。<br />
+因此，自然语言训练了我们的直觉判断、语境理解和创造表达的思维方式。</p>
+<h2 id="编程逻辑推演与算法思维"><a class="header" href="#编程逻辑推演与算法思维">编程：逻辑推演与算法思维</a></h2>
+<p>编程要求一种高度严谨的逻辑思维方式，也就是所谓的“计算思维”。<br />
+面对一个问题，程序员习惯将其拆解为一系列可执行的步骤（算法），考虑各种可能的输入情况和对应的处理，确保过程在有限步骤内完成目标。<br />
+这种思维需要<strong>抽象化</strong>（提取问题的关键要素并用数据结构表示）、<strong>逻辑推理</strong>（如果...那么...的因果链条）、<strong>过程规划</strong>（先做什么后做什么）和<strong>注意细节</strong>（一个小错误就可能导致程序失败）。<br />
+编程思维也强调<strong>调试</strong>：当结果不符合预期时，有系统地追踪错误来源并纠正的能力。<br />
+这与数学证明中的“查错”和自然语言交流中的“澄清”有相似之处，但编程调试更像一种工程化的逆向推理。<br />
+值得注意的是，编程不仅需要理性逻辑，有时也需要<strong>直觉和创造力</strong>——例如设计一个新算法或构思架构往往要跳出常规思路想象新的方案。不过总体而言，编程锻炼的是<strong>算法化的理性思维</strong>，一步步严密推演，偏重左脑逻辑分析。<br />
+很多初学者会觉得写程序“像在解谜题”，的确，解决编程问题与解数独等逻辑谜题所用的心智过程有共通之处。<br />
+随着经验积累，程序员也会发展出某种“直觉”，能够在代码未完全写好前就大致预见其行为，但这种直觉依然是建立在大量逻辑训练基础上的。</p>
+<h2 id="数学抽象概括与演绎推理"><a class="header" href="#数学抽象概括与演绎推理">数学：抽象概括与演绎推理</a></h2>
+<p>数学思维以高度抽象和严谨演绎闻名。<br />
+数学要求我们从具体情境中抽离出普适结构（如从若干具体数量关系中提炼出公式模型），并通过演绎推理得到结论。<br />
+<strong>抽象思维</strong>在数学中扮演核心角色：数学家可以抛开直观直觉，思考<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>维空间、无穷小量这类超越直接经验的概念。<br />
+而<strong>逻辑推理</strong>则是数学证明的根基，每一步推导都要有理有据地从公理或前一步得出。<br />
+在训练数学时，我们的大脑习惯了“<strong>冷静且系统地</strong>”分析问题，不受表面迷惑，直抵问题的形式结构。<br />
+与自然语言相比，数学思维几乎不依赖外部语境——一个定理在任何场景下都成立，不像一句话可能在不同文化下理解不同。<br />
+因此有人说数学思维可以脱离现实语境而独立存在。然而，这并不意味着数学思维毫无创造性或直觉。<br />
+恰恰相反，在发现解题思路或提出猜想时，数学家也运用大量直觉猜测和类比想象，只是这些直觉灵感最终必须被严谨论证所验证。<br />
+可以说，数学培养了<strong>高度抽象化</strong>和<strong>严格自洽</strong>的思维——既要求大胆想象又要求精确求证。<br />
+在碰到陌生问题时，一个接受过良好数学训练的人往往会自然地梳理已知条件、推导必然结论，这种演绎思维也会迁移到日常生活的逻辑判断中。</p>
+<h2 id="小结"><a class="header" href="#小结">小结</a></h2>
+<p>自然语言思维更侧重语用直觉和社交理解，编程思维偏向流程化的逻辑演绎，数学思维则达到抽象演绎的极致。<br />
+三者的思维方式虽然侧重不同，但也有共通之处：<br />
+例如都需要一定的<strong>模式识别</strong>能力（识别语言中的句型、代码中的设计模式、数学中的结构），都受益于<strong>分解问题</strong>的策略（分句解析语义、将大程序拆成子模块、把复杂问题分步求解）。<br />
+同时，掌握一门语言（无论哪种）的过程都证明<strong>记忆</strong>和<strong>理解</strong>并重——记忆基本元素（单词、语法规则、定理公式），理解这些元素如何组合表达意义或解题。<br />
+值得一提的是，不同思维之间也会相互渗透：<br />
+喜欢语言的人往往善于联想，这有助于编程中创造解决方案；<br />
+擅长数学的人逻辑严谨，这在调试程序或分析句法时都有帮助；<br />
+而编程磨炼出的系统思考方式，也可能改善我们组织语言表达或分解复杂问题的能力。<br />
+正是在这些思维方式的交融下，多领域的学习能够拓宽我们大脑的思考维度。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
